@@ -1,0 +1,25 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera.any" />
+
+    <application
+        android:name=".SmartStorageApp"
+        android:allowBackup="true"
+        android:icon="@mipmap:drawable/sym_def_app_icon"
+        android:label="Smart Storage AR"
+        android:roundIcon="@mipmap:drawable/sym_def_app_icon_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SmartStorageAR">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
