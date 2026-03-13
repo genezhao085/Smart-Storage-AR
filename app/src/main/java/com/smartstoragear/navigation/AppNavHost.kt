@@ -21,7 +21,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.navigation.NavBackStackEntry
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -76,9 +75,9 @@ fun AppNavHost() {
             )
         }
         composable(NavRoutes.REVIEW, arguments = listOf(navArgument("spaceId") { type = NavType.StringType })) { reviewEntry ->
-            val spaceId = reviewEntry.arguments?.getString("spaceId")
-            val captureEntry: NavBackStackEntry = remember(spaceId) {
-                runCatching { nav.getBackStackEntry("capture/$spaceId") }.getOrElse { reviewEntry }
+            val captureEntry = remember(reviewEntry) {
+                nav.previousBackStackEntry?.takeIf { it.destination.route == NavRoutes.CAPTURE }
+                    ?: nav.getBackStackEntry(NavRoutes.CAPTURE)
             }
             val captureVm: CaptureViewModel = hiltViewModel(captureEntry)
             val reviewVm: ReviewViewModel = hiltViewModel(reviewEntry)
@@ -164,7 +163,7 @@ fun ReviewScreen(count: Int, onFinalize: () -> Unit) {
     Column(Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Text("Review $count photos")
         Text("Cloud modeling unavailable: mock node generation will be used.")
-        Button(onClick = onFinalize) { Text("Finalize Scan") }
+        Button(onClick = onFinalize, enabled = count >= 3) { Text("Finalize Scan") }
     }
 }
 
