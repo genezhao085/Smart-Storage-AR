@@ -1,5 +1,6 @@
 # Smart Storage AR (Android MVP)
 
+The app helps users digitize storage spaces, manage storage nodes, add items, and view a basic AR overlay.
 Production-style Android MVP app in Kotlin + Jetpack Compose for digitizing storage spaces, capturing guided photos, managing nodes/items, searching inventory, and viewing AR labels.
 
 ## Tech Stack
@@ -55,7 +56,3 @@ Node types: `room`, `cabinet`, `drawer`, `shelf`, `box`, `unknown`.
 - AR page degrades gracefully when ARCore is unsupported.
 - Room stores spaces, nodes, items, and scans.
 - Capture validation rejects blurry and duplicate-angle images.
-
-
-## GitHub 同步说明
-- 本次已将当前 README 内容更新并准备通过提交/PR 同步到 GitHub。
