@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Storage AR</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header>
+        <h1>Smart Storage AR</h1>
+        <p>Digitize your storage with mock nodes, bind items, and preview an AR-ready layout.</p>
+      </header>
+
+      <section class="panel" id="space-section">
+        <div class="panel-title-row">
+          <h2>1) Space module</h2>
+          <button id="generate-space-btn" type="button">Generate Mock SpaceNodes</button>
+        </div>
+        <p class="hint">Creates deterministic mock nodes with position, dimensions, and capacity.</p>
+        <div id="space-node-list" class="grid"></div>
+      </section>
+
+      <section class="panel" id="binding-section">
+        <h2>2) Item binding</h2>
+        <form id="binding-form" class="binding-form">
+          <label>
+            Item name
+            <input id="item-name" type="text" placeholder="e.g. Winter Jacket" required />
+          </label>
+          <label>
+            Quantity
+            <input id="item-qty" type="number" min="1" value="1" required />
+          </label>
+          <label>
+            Bind to SpaceNode
+            <select id="node-select" required></select>
+          </label>
+          <button type="submit">Bind item</button>
+        </form>
+        <ul id="binding-list" class="binding-list"></ul>
+      </section>
+
+      <section class="panel" id="ar-section">
+        <h2>3) AR viewer</h2>
+        <button id="launch-ar-btn" type="button">Launch AR Viewer</button>
+        <p id="ar-status" class="hint"></p>
+        <div id="ar-view" class="ar-view" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>
