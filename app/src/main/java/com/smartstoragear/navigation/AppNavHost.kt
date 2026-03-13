@@ -21,6 +21,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.navigation.NavBackStackEntry
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -74,9 +75,13 @@ fun AppNavHost() {
                 }
             )
         }
-        composable(NavRoutes.REVIEW, arguments = listOf(navArgument("spaceId") { type = NavType.StringType })) {
-            val captureVm: CaptureViewModel = hiltViewModel(it)
-            val reviewVm: ReviewViewModel = hiltViewModel(it)
+        composable(NavRoutes.REVIEW, arguments = listOf(navArgument("spaceId") { type = NavType.StringType })) { reviewEntry ->
+            val spaceId = reviewEntry.arguments?.getString("spaceId")
+            val captureEntry: NavBackStackEntry = remember(spaceId) {
+                runCatching { nav.getBackStackEntry("capture/$spaceId") }.getOrElse { reviewEntry }
+            }
+            val captureVm: CaptureViewModel = hiltViewModel(captureEntry)
+            val reviewVm: ReviewViewModel = hiltViewModel(reviewEntry)
             val photos by captureVm.photos.collectAsState()
             ReviewScreen(count = photos.size, onFinalize = {
                 reviewVm.finalizeScan(photos) { nav.navigate("space/${reviewVm.spaceId}") }
